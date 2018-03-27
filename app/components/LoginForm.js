@@ -1,7 +1,7 @@
 import React from 'react';
-import {StyleSheet, Text, TextInput, TouchableOpacity, KeyboardAvoidingView} from 'react-native';
+import {KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {connect} from "react-redux";
-import {login, register} from "../redux/actions/Auth";
+import {login} from "../redux/actions/Auth";
 import {LOGIN} from "../redux/constants/ActionTypes";
 
 export default class LoginForm extends React.Component {
@@ -23,37 +23,38 @@ export default class LoginForm extends React.Component {
 
     render() {
         return (
-            <KeyboardAvoidingView style={styles.login_form} behaviour="padding">
+            <View style={styles.container}>
+                <KeyboardAvoidingView style={styles.login_form} behaviour="padding">
 
-                <Text style={styles.header}>Login</Text>
+                    <TextInput style={styles.text_input} placeholder="Email" placeholderTextColor="white"
+                               underlineColorAndroid={'transparent'} keyboardType="email-address"
+                               onChangeText={(text) => this.setState({email: text})}/>
+                    <TextInput style={styles.text_input} placeholder="Password" placeholderTextColor="white"
+                               underlineColorAndroid={'transparent'}
+                               onChangeText={(text) => this.setState({password: text})}
+                               secureTextEntry={true}/>
 
-                <TextInput style={styles.text_input} placeholder="Email" placeholderTextColor="white"
-                           underlineColorAndroid={'transparent'} keyboardType="email-address" onChangeText={(text) => this.setState({ email : text })}/>
-                <TextInput style={styles.text_input} placeholder="Password" placeholderTextColor="white"
-                           underlineColorAndroid={'transparent'} onChangeText={(text) => this.setState({ password : text })}
-                           secureTextEntry={true}/>
+                    <TouchableOpacity style={styles.button} onPress={(e) => this.login(e)}>
+                        <Text style={styles.btn_text}>Login</Text>
+                    </TouchableOpacity>
 
-                <TouchableOpacity style={styles.button} onPress={(e) => this.login(e)}>
-                    <Text style={styles.btn_text}>Login</Text>
-                </TouchableOpacity>
-
-            </KeyboardAvoidingView>
+                </KeyboardAvoidingView>
+            </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        backgroundColor: '#36485f',
+        paddingLeft: 60,
+        paddingRight: 60
+    },
     login_form: {
         alignSelf: 'stretch',
 
-    },
-    header: {
-        fontSize: 24,
-        color: '#fff',
-        paddingBottom: 10,
-        marginBottom: 40,
-        borderBottomColor: '#199187',
-        borderBottomWidth: 1
     },
     text_input: {
         alignSelf: 'stretch',
@@ -84,7 +85,9 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onLogin: (username, password) => { dispatch(login(username, password)); }
+        onLogin: (username, password) => {
+            dispatch(login(username, password));
+        }
     }
 };
 

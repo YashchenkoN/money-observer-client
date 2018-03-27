@@ -1,5 +1,13 @@
 import React from 'react';
-import {StyleSheet, Text, TextInput, TouchableOpacity, KeyboardAvoidingView} from 'react-native';
+import {
+    Button,
+    KeyboardAvoidingView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View
+} from 'react-native';
 import {connect} from "react-redux";
 import {register} from "../redux/actions/Auth";
 import {REGISTER} from "../redux/constants/ActionTypes";
@@ -25,43 +33,50 @@ export default class RegistrationForm extends React.Component {
 
     render() {
         return (
-            <KeyboardAvoidingView style={styles.registration_form} behaviour="padding">
+            <View style={styles.container}>
+                <KeyboardAvoidingView style={styles.registration_form} behaviour="padding">
 
-                <Text style={styles.header}>Registration</Text>
+                    <TextInput style={styles.text_input} placeholder="First Name" placeholderTextColor="white"
+                               underlineColorAndroid={'transparent'}
+                               onChangeText={(text) => this.setState({firstName: text})}/>
+                    <TextInput style={styles.text_input} placeholder="Last Name" placeholderTextColor="white"
+                               underlineColorAndroid={'transparent'}
+                               onChangeText={(text) => this.setState({lastName: text})}/>
+                    <TextInput style={styles.text_input} placeholder="Email" placeholderTextColor="white"
+                               underlineColorAndroid={'transparent'} keyboardType="email-address"
+                               onChangeText={(text) => this.setState({email: text})}/>
+                    <TextInput style={styles.text_input} placeholder="Password" placeholderTextColor="white"
+                               underlineColorAndroid={'transparent'}
+                               onChangeText={(text) => this.setState({password: text})}
+                               secureTextEntry={true}/>
 
-                <TextInput style={styles.text_input} placeholder="First Name" placeholderTextColor="white"
-                           underlineColorAndroid={'transparent'} onChangeText={(text) => this.setState({ firstName : text })}/>
-                <TextInput style={styles.text_input} placeholder="Last Name" placeholderTextColor="white"
-                           underlineColorAndroid={'transparent'} onChangeText={(text) => this.setState({ lastName : text })}/>
-                <TextInput style={styles.text_input} placeholder="Email" placeholderTextColor="white"
-                           underlineColorAndroid={'transparent'} keyboardType="email-address" onChangeText={(text) => this.setState({ email : text })}/>
-                <TextInput style={styles.text_input} placeholder="Password" placeholderTextColor="white"
-                           underlineColorAndroid={'transparent'} onChangeText={(text) => this.setState({ password : text })}
-                           secureTextEntry={true}/>
+                    <TouchableOpacity style={styles.button} onPress={(e) => this.register(e)}>
+                        <Text style={styles.btn_text}>Sign up</Text>
+                    </TouchableOpacity>
 
-                <TouchableOpacity style={styles.button} onPress={(e) => this.register(e)}>
-                    <Text style={styles.btn_text}>Sign up</Text>
-                </TouchableOpacity>
+                    <Button buttonStyle={{marginTop: 40}}
+                            backgroundColor="transparent"
+                            textStyle={{color: "#fff"}}
+                            title="Login"
+                            onPress={() => this.props.navigation.navigate('Login')}/>
 
-                <Text style={styles.button} onPress={() => this.props.navigation.navigate('LoginForm')}>Login</Text>
-
-            </KeyboardAvoidingView>
+                </KeyboardAvoidingView>
+            </View>
         );
     }
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        backgroundColor: '#36485f',
+        paddingLeft: 60,
+        paddingRight: 60
+    },
     registration_form: {
         alignSelf: 'stretch',
 
-    },
-    header: {
-        fontSize: 24,
-        color: '#fff',
-        paddingBottom: 10,
-        marginBottom: 40,
-        borderBottomColor: '#199187',
-        borderBottomWidth: 1
     },
     text_input: {
         alignSelf: 'stretch',
@@ -92,7 +107,9 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onRegister: (username, password, firstName, lastName) => { dispatch(register(username, password, firstName, lastName)); }
+        onRegister: (username, password, firstName, lastName) => {
+            dispatch(register(username, password, firstName, lastName));
+        }
     }
 };
 
