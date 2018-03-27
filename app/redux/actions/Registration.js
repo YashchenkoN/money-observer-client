@@ -8,8 +8,7 @@ export const register = (username, password, firstName, lastName) => {
         dispatch(loading(true));
 
         userService.register(username, password, firstName, lastName)
-            .then(
-                resp => {
+            .then(resp => {
                     dispatch(loading(false));
 
                     dispatch({

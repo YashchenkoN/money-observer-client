@@ -8,8 +8,7 @@ export const login = (username, password) => {
         dispatch(loading(true));
 
         userService.login(username, password)
-            .then(
-                resp => {
+            .then(resp => {
                     dispatch(loading(false));
 
                     dispatch({
