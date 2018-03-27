@@ -1,22 +1,28 @@
 import {userService} from "../../service/UserService";
-import {REGISTER, LOGIN, LOGOUT} from "../constants/ActionTypes";
+import {REGISTER, LOGIN, LOGOUT, FAILED, LOADING} from "../constants/ActionTypes";
+import {failed, loading} from "./Common";
 
 export const register = (username, password, firstName, lastName) => {
-    return userService.register(username, password, firstName, lastName)
-        .then(
-            tokenResp => {
-                return {
-                    type: REGISTER,
-                    token: tokenResp.token
+    return dispatch => {
+
+        dispatch(loading(true));
+
+        userService.register(username, password, firstName, lastName)
+            .then(
+                tokenResp => {
+                    dispatch(loading(false));
+
+                    dispatch({
+                        type: REGISTER,
+                        token: tokenResp.token
+                    });
+                },
+                error => {
+                    dispatch(loading(false));
+                    dispatch(failed(error))
                 }
-            },
-            error => {
-                return {
-                    type: REGISTER,
-                    error: error
-                }
-            }
-        );
+            );
+    };
 };
 
 export const login = (username, password) => {

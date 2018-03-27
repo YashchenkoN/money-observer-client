@@ -11,6 +11,7 @@ import {
 import {connect} from "react-redux";
 import {register} from "../redux/actions/Auth";
 import {REGISTER} from "../redux/constants/ActionTypes";
+import Loader from "./Loader";
 
 const mapStateToProps = (state, ownProps) => {
     return {
@@ -37,7 +38,8 @@ export default class RegistrationForm extends React.Component {
             email: '',
             password: '',
             firstName: '',
-            lastName: ''
+            lastName: '',
+            isLoading: false
         }
     }
 
@@ -50,6 +52,8 @@ export default class RegistrationForm extends React.Component {
         return (
             <View style={styles.container}>
                 <KeyboardAvoidingView style={styles.registration_form} behaviour="padding">
+
+                    <Loader loading={this.state.isLoading}/>
 
                     <TextInput style={styles.text_input} placeholder="First Name" placeholderTextColor="white"
                                underlineColorAndroid={'transparent'}
