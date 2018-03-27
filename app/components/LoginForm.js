@@ -4,6 +4,21 @@ import {connect} from "react-redux";
 import {login} from "../redux/actions/Auth";
 import {LOGIN} from "../redux/constants/ActionTypes";
 
+const mapStateToProps = (state, ownProps) => {
+    return {
+        isLoggedIn: state.auth.isLoggedIn
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onLogin: (username, password) => {
+            dispatch(login(username, password));
+        }
+    }
+};
+
+@connect(mapStateToProps, mapDispatchToProps)
 export default class LoginForm extends React.Component {
 
     constructor(props) {
@@ -76,19 +91,3 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     }
 });
-
-const mapStateToProps = (state, ownProps) => {
-    return {
-        isLoggedIn: state.auth.isLoggedIn
-    };
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        onLogin: (username, password) => {
-            dispatch(login(username, password));
-        }
-    }
-};
-
-connect(mapStateToProps, mapDispatchToProps)(LoginForm);

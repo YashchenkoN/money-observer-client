@@ -1,3 +1,5 @@
+import {LOGIN, LOGOUT, REGISTER} from "../constants/ActionTypes";
+
 const defaultState = {
     isLoggedIn: false,
     token: ''
@@ -5,17 +7,17 @@ const defaultState = {
 
 export default function reducer(state = defaultState, action) {
     switch (action.type) {
-        case 'REGISTER':
+        case REGISTER:
             return Object.assign({}, state, {
                 isLoggedIn: true,
                 token: action.token
             });
-        case 'LOGIN':
+        case LOGIN:
             return Object.assign({}, state, {
                 isLoggedIn: true,
                 token: action.token
             });
-        case 'LOGOUT':
+        case LOGOUT:
             return Object.assign({}, state, {
                 isLoggedIn: false,
                 token: ''

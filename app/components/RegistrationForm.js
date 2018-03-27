@@ -12,6 +12,21 @@ import {connect} from "react-redux";
 import {register} from "../redux/actions/Auth";
 import {REGISTER} from "../redux/constants/ActionTypes";
 
+const mapStateToProps = (state, ownProps) => {
+    return {
+        isLoggedIn: state.auth.isLoggedIn
+    };
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onRegister: (username, password, firstName, lastName) => {
+            dispatch(register(username, password, firstName, lastName));
+        }
+    }
+};
+
+@connect(mapStateToProps, mapDispatchToProps)
 export default class RegistrationForm extends React.Component {
 
     constructor(props) {
@@ -98,19 +113,3 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     }
 });
-
-const mapStateToProps = (state, ownProps) => {
-    return {
-        isLoggedIn: state.auth.isLoggedIn
-    };
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        onRegister: (username, password, firstName, lastName) => {
-            dispatch(register(username, password, firstName, lastName));
-        }
-    }
-};
-
-connect(mapStateToProps, mapDispatchToProps)(RegistrationForm);
