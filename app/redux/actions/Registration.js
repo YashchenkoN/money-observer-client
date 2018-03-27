@@ -1,5 +1,6 @@
 import {userService} from "../../service/UserService";
-import {FAILED, LOADING, REGISTER} from "../constants/ActionTypes";
+import {REGISTER} from "../constants/ActionTypes";
+import {failed, loading} from "./Common";
 
 export const register = (username, password, firstName, lastName) => {
     return dispatch => {
@@ -23,18 +24,4 @@ export const register = (username, password, firstName, lastName) => {
                 dispatch(failed(err.message))
             })
     };
-};
-
-export const loading = (isLoading) => {
-    return {
-        type: LOADING,
-        isLoading: isLoading
-    }
-};
-
-export const failed = (error) => {
-    return {
-        type: FAILED,
-        error: error
-    }
 };

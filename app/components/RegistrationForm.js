@@ -17,9 +17,9 @@ import Loader from "./Loader";
 const mapStateToProps = (state, ownProps) => {
     return {
         isLoggedIn: state.registration.isLoggedIn,
-        isLoading: state.registration.isLoading,
-        error: state.registration.error,
-        token: state.registration.token
+        token: state.registration.token,
+        isLoading: state.common.isLoading,
+        error: state.common.error
     };
 };
 

@@ -1,35 +1,27 @@
 import {userService} from "../../service/UserService";
-import {FAILED, LOADING, LOGIN} from "../constants/ActionTypes";
+import {LOGIN} from "../constants/ActionTypes";
+import {failed, loading} from "./Common";
 
 export const login = (username, password) => {
+    return dispatch => {
 
-    return userService.login(username, password)
-        .then(
-            tokenResp => {
-                return {
-                    type: LOGIN,
-                    token: tokenResp.token
+        dispatch(loading(true));
+
+        userService.login(username, password)
+            .then(
+                resp => {
+                    dispatch(loading(false));
+
+                    dispatch({
+                        type: LOGIN,
+                        token: resp.json().token,
+                        error: null
+                    });
                 }
-            },
-            error => {
-                return {
-                    type: LOGIN,
-                    error: error
-                }
-            }
-        )
-};
-
-export const loading = (isLoading) => {
-    return {
-        type: LOADING,
-        isLoading: isLoading
-    }
-};
-
-export const failed = (error) => {
-    return {
-        type: FAILED,
-        error: error
+            )
+            .catch(err => {
+                dispatch(loading(false));
+                dispatch(failed(err.message))
+            })
     }
 };

@@ -1,12 +1,15 @@
 import React from 'react';
-import {KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {Alert, KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {connect} from "react-redux";
 import {login} from "../redux/actions/Login";
 import {LOGIN} from "../redux/constants/ActionTypes";
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        isLoggedIn: state.login.isLoggedIn
+        isLoggedIn: state.login.isLoggedIn,
+        token: state.registration.token,
+        isLoading: state.common.isLoading,
+        error: state.common.error
     };
 };
 
@@ -27,13 +30,20 @@ export default class LoginForm extends React.Component {
         this.state = {
             route: LOGIN,
             email: '',
-            password: ''
+            password: '',
+            isLoading: false
         }
     }
 
     login(e) {
         this.props.onLogin(this.state.email, this.state.password);
         e.preventDefault();
+    }
+
+    componentDidUpdate() {
+        if (this.props.error != null && this.props.error !== undefined && this.props.error !== '') {
+            setTimeout(() => Alert.alert(this.props.error), 600);
+        }
     }
 
     render() {

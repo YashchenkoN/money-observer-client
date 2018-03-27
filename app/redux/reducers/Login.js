@@ -2,9 +2,7 @@ import {LOGIN} from "../constants/ActionTypes";
 
 const defaultState = {
     isLoggedIn: false,
-    token: '',
-    isLoading: false,
-    error: ''
+    token: null
 };
 
 export default function reducer(state = defaultState, action) {
