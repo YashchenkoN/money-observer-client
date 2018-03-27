@@ -15,11 +15,3 @@ export default class App extends React.Component {
         )
     }
 }
-
-const mapStateToProps = (state, ownProps) => {
-    return {
-        isLoggedIn: state.auth.isLoggedIn
-    };
-};
-
-connect(mapStateToProps)(App);

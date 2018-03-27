@@ -1,12 +1,12 @@
 import React from 'react';
 import {KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {connect} from "react-redux";
-import {login} from "../redux/actions/Auth";
+import {login} from "../redux/actions/Login";
 import {LOGIN} from "../redux/constants/ActionTypes";
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        isLoggedIn: state.auth.isLoggedIn
+        isLoggedIn: state.login.isLoggedIn
     };
 };
 

@@ -9,13 +9,17 @@ import {
     View
 } from 'react-native';
 import {connect} from "react-redux";
-import {register} from "../redux/actions/Auth";
+import {register} from "../redux/actions/Registration";
 import {REGISTER} from "../redux/constants/ActionTypes";
 import Loader from "./Loader";
+import {Alert} from "react-native";
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        isLoggedIn: state.auth.isLoggedIn
+        isLoggedIn: state.registration.isLoggedIn,
+        isLoading: state.registration.isLoading,
+        error: state.registration.error,
+        token: state.registration.token
     };
 };
 
@@ -49,11 +53,16 @@ export default class RegistrationForm extends React.Component {
     }
 
     render() {
+
+        if (this.props.error != null && this.props.error !== undefined && this.props.error !== '') {
+            Alert.alert(this.props.error);
+        }
+
         return (
             <View style={styles.container}>
                 <KeyboardAvoidingView style={styles.registration_form} behaviour="padding">
 
-                    <Loader loading={this.state.isLoading}/>
+                    <Loader loading={this.props.isLoading}/>
 
                     <TextInput style={styles.text_input} placeholder="First Name" placeholderTextColor="white"
                                underlineColorAndroid={'transparent'}

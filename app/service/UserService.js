@@ -18,14 +18,7 @@ function register(username, password, firstName, lastName) {
         })
     };
 
-    return fetch('/api/auth/signup', requestOptions)
-        .then(response => {
-            if (!response.ok) {
-                return Promise.reject(response.statusText);
-            }
-
-            return response.json();
-        });
+    return fetch('/api/auth/signup', requestOptions);
 }
 
 function login(username, password) {
