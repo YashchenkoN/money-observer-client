@@ -11,13 +11,15 @@ export default function reducer(state = defaultState, action) {
 
     switch (action.type) {
         case LOADING:
-            return Object.assign({}, state, {
+            return {
+                ... state,
                 isLoading: action.isLoading
-            });
+            };
         case FAILED:
-            return Object.assign({}, state, {
+            return {
+                ... state,
                 error: action.error
-            });
+            };
         default:
             return state;
     }
