@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+    Alert,
     Button,
     KeyboardAvoidingView,
     StyleSheet,
@@ -12,7 +13,6 @@ import {connect} from "react-redux";
 import {register} from "../redux/actions/Registration";
 import {REGISTER} from "../redux/constants/ActionTypes";
 import Loader from "./Loader";
-import {Alert} from "react-native";
 
 const mapStateToProps = (state, ownProps) => {
     return {
@@ -48,7 +48,12 @@ export default class RegistrationForm extends React.Component {
     }
 
     register(e) {
-        this.props.onRegister(this.state.email, this.state.password, this.state.firstName, this.state.lastName);
+        this.props.onRegister(
+            this.state.email,
+            this.state.password,
+            this.state.firstName,
+            this.state.lastName
+        );
         e.preventDefault();
     }
 
