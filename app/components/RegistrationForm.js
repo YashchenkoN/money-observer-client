@@ -52,17 +52,20 @@ export default class RegistrationForm extends React.Component {
         e.preventDefault();
     }
 
-    render() {
-
+    componentDidUpdate() {
         if (this.props.error != null && this.props.error !== undefined && this.props.error !== '') {
-            Alert.alert(this.props.error);
+            setTimeout(() => Alert.alert(this.props.error), 600);
         }
+    }
+
+    render() {
+        const {isLoading} = this.props;
 
         return (
             <View style={styles.container}>
                 <KeyboardAvoidingView style={styles.registration_form} behaviour="padding">
 
-                    <Loader loading={this.props.isLoading}/>
+                    <Loader loading={isLoading}/>
 
                     <TextInput style={styles.text_input} placeholder="First Name" placeholderTextColor="white"
                                underlineColorAndroid={'transparent'}

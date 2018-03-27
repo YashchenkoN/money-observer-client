@@ -8,17 +8,16 @@ const Loader = props => {
     } = props;
 
     return (
-        <Modal
+        loading && (<Modal
             transparent={true}
-            animationType={'none'}
-            visible={loading}>
+            animationType={'none'}>
 
             <View style={styles.modalBackground}>
                 <View style={styles.activityIndicatorWrapper}>
-                    <ActivityIndicator animating={loading}/>
+                    <ActivityIndicator/>
                 </View>
             </View>
-        </Modal>
+        </Modal>)
     )
 };
 

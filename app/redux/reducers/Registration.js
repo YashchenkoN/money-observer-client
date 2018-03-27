@@ -8,7 +8,8 @@ const defaultState = {
 };
 
 export default function reducer(state = defaultState, action) {
-    console.log(action);
+    console.log('REGISTER STATE: ', state);
+    console.log('REGISTER ACTION: ', action);
 
     switch (action.type) {
         case LOADING:
@@ -22,8 +23,7 @@ export default function reducer(state = defaultState, action) {
             });
         case FAILED:
             return Object.assign({}, state, {
-                error: action.error,
-                isLoading: action.isLoading
+                error: action.error
             });
         default:
             return state;
