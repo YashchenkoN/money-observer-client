@@ -5,14 +5,14 @@ export const userService = {
     login
 };
 
-function register(username, password, firstName, lastName) {
+function register(email, password, firstName, lastName) {
     const requestOptions = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            username: username,
+            username: email,
             password: password,
             firstName: firstName,
             lastName: lastName

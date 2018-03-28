@@ -1,18 +1,9 @@
 import React from 'react';
-import {
-    Alert,
-    Button,
-    KeyboardAvoidingView,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View
-} from 'react-native';
+import {Alert, Button, KeyboardAvoidingView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {connect} from "react-redux";
 import {register} from "../redux/actions/Registration";
-import {REGISTER} from "../redux/constants/ActionTypes";
 import Loader from "./Loader";
+import t from "tcomb-form-native";
 
 const mapStateToProps = (state, ownProps) => {
     return {
@@ -25,10 +16,30 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onRegister: (username, password, firstName, lastName) => {
-            dispatch(register(username, password, firstName, lastName));
+        onRegister: (email, password, firstName, lastName) => {
+            dispatch(register(email, password, firstName, lastName));
         }
     }
+};
+
+const RegisterObject = t.struct({
+    email: t.String,
+    password: t.String,
+    firstName: t.String,
+    lastName: t.String
+});
+
+const Form = t.form.Form;
+
+const formStyle = {
+    ...Form.stylesheet,
+    error: {
+        color: 'red'
+    }
+};
+
+const options = {
+    stylesheet: formStyle
 };
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -38,29 +49,32 @@ export default class RegistrationForm extends React.Component {
         super(props);
 
         this.state = {
-            route: REGISTER,
-            email: '',
-            password: '',
-            firstName: '',
-            lastName: '',
+            isLoggedIn: false,
+            token: null,
             isLoading: false,
             error: null
         }
     }
 
-    register(e) {
-        this.props.onRegister(
-            this.state.email,
-            this.state.password,
-            this.state.firstName,
-            this.state.lastName
-        );
+    register = () => {
+        let value = this.refs.form.getValue();
 
-        e.preventDefault();
-    }
+        console.log(value);
+
+        if (value) {
+            this.props.onRegister(
+                value.email,
+                value.password,
+                value.firstName,
+                value.lastName
+            );
+        }
+    };
 
     render() {
         const {isLoading, error} = this.props;
+
+        console.log('LOADING: ' + isLoading);
 
         if (error && !this.state.error) {
             this.state.error = error;
@@ -76,21 +90,9 @@ export default class RegistrationForm extends React.Component {
 
                     <Loader loading={isLoading}/>
 
-                    <TextInput style={styles.text_input} placeholder="First Name" placeholderTextColor="white"
-                               underlineColorAndroid={'transparent'}
-                               onChangeText={(text) => this.setState({firstName: text})}/>
-                    <TextInput style={styles.text_input} placeholder="Last Name" placeholderTextColor="white"
-                               underlineColorAndroid={'transparent'}
-                               onChangeText={(text) => this.setState({lastName: text})}/>
-                    <TextInput style={styles.text_input} placeholder="Email" placeholderTextColor="white"
-                               underlineColorAndroid={'transparent'} keyboardType="email-address"
-                               onChangeText={(text) => this.setState({email: text})}/>
-                    <TextInput style={styles.text_input} placeholder="Password" placeholderTextColor="white"
-                               underlineColorAndroid={'transparent'}
-                               onChangeText={(text) => this.setState({password: text})}
-                               secureTextEntry={true}/>
+                    <Form ref="form" type={RegisterObject} options={options}/>
 
-                    <TouchableOpacity style={styles.button} onPress={(e) => this.register(e)}>
+                    <TouchableOpacity style={styles.button} onPress={this.register}>
                         <Text style={styles.btn_text}>Sign up</Text>
                     </TouchableOpacity>
 
@@ -110,21 +112,12 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        backgroundColor: '#36485f',
         paddingLeft: 60,
         paddingRight: 60
     },
     registration_form: {
         alignSelf: 'stretch',
 
-    },
-    text_input: {
-        alignSelf: 'stretch',
-        height: 40,
-        marginBottom: 30,
-        color: '#fff',
-        borderBottomColor: '#f8f8f8',
-        borderBottomWidth: 1
     },
     button: {
         alignSelf: 'stretch',
@@ -136,5 +129,9 @@ const styles = StyleSheet.create({
     btn_text: {
         color: '#fff',
         fontWeight: 'bold'
+    },
+    error: {
+        borderColor: '#cb002f',
+        borderWidth: 1
     }
 });

@@ -1,4 +1,4 @@
-import {userService} from "../../service/UserService";
+import {userService} from "../../services/UserService";
 import {LOGIN, LOGIN_FAILED, LOGIN_LOADING} from "../constants/ActionTypes";
 
 export const login = (username, password) => {
