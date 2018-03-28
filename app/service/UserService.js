@@ -34,12 +34,5 @@ function login(username, password) {
         })
     };
 
-    return fetch(SIGN_IN, requestOptions)
-        .then(response => {
-            if (!response.ok) {
-                return Promise.reject(response.statusText);
-            }
-
-            return response.json();
-        });
+    return fetch(SIGN_IN, requestOptions);
 }
