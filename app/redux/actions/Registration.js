@@ -7,12 +7,13 @@ export const register = (username, password, firstName, lastName) => {
         dispatch(loading(true));
 
         userService.register(username, password, firstName, lastName)
-            .then(resp => {
+            .then(resp => resp.json())
+            .then(json => {
                     dispatch(loading(false));
 
                     dispatch({
                         type: REGISTER,
-                        token: resp.json().token,
+                        token: json.token,
                         error: null
                     });
                 }
