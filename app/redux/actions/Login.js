@@ -1,6 +1,5 @@
 import {userService} from "../../service/UserService";
-import {LOGIN} from "../constants/ActionTypes";
-import {failed, loading} from "./Common";
+import {LOGIN, LOGIN_FAILED, LOGIN_LOADING} from "../constants/ActionTypes";
 
 export const login = (username, password) => {
     return dispatch => {
@@ -22,5 +21,19 @@ export const login = (username, password) => {
                 dispatch(loading(false));
                 dispatch(failed(err.message))
             })
+    }
+};
+
+export const loading = (isLoading) => {
+    return {
+        type: LOGIN_LOADING,
+        isLoading: isLoading
+    }
+};
+
+export const failed = (error) => {
+    return {
+        type: LOGIN_FAILED,
+        error: error
     }
 };

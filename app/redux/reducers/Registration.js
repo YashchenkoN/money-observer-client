@@ -1,18 +1,31 @@
-import {FAILED, LOADING, REGISTER} from "../constants/ActionTypes";
+import {FAILED, LOADING, REGISTER, REGISTER_FAILED, REGISTER_LOADING} from "../constants/ActionTypes";
 
 const defaultState = {
     isLoggedIn: false,
-    token: null
+    token: null,
+    isLoading: false,
+    error: null
 };
 
 export default function reducer(state = defaultState, action) {
 
     switch (action.type) {
         case REGISTER:
-            return Object.assign({}, state, {
+            return {
+                ...state,
                 isLoggedIn: action.isLoggedIn,
                 token: action.token
-            });
+            };
+        case REGISTER_LOADING:
+            return {
+                ...state,
+                isLoading: action.isLoading
+            };
+        case REGISTER_FAILED:
+            return {
+                ...state,
+                error: action.error
+            };
         default:
             return state;
     }

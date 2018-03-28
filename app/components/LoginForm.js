@@ -3,13 +3,14 @@ import {Alert, KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpaci
 import {connect} from "react-redux";
 import {login} from "../redux/actions/Login";
 import {LOGIN} from "../redux/constants/ActionTypes";
+import Loader from "./Loader";
 
 const mapStateToProps = (state, ownProps) => {
     return {
         isLoggedIn: state.login.isLoggedIn,
-        token: state.registration.token,
-        isLoading: state.common.isLoading,
-        error: state.common.error
+        token: state.login.token,
+        isLoading: state.login.isLoading,
+        error: state.login.error
     };
 };
 
@@ -31,7 +32,8 @@ export default class LoginForm extends React.Component {
             route: LOGIN,
             email: '',
             password: '',
-            isLoading: false
+            isLoading: false,
+            error: null
         }
     }
 
@@ -40,16 +42,22 @@ export default class LoginForm extends React.Component {
         e.preventDefault();
     }
 
-    componentDidUpdate() {
-        if (this.props.error != null && this.props.error !== undefined && this.props.error !== '') {
-            setTimeout(() => Alert.alert(this.props.error), 600);
-        }
-    }
-
     render() {
+        const {isLoading, error} = this.props;
+
+        if (error && !this.state.error) {
+            this.state.error = error;
+            setTimeout(() => {
+                Alert.alert(error);
+                this.state.error = null;
+            }, 500);
+        }
+
         return (
             <View style={styles.container}>
                 <KeyboardAvoidingView style={styles.login_form} behaviour="padding">
+
+                    <Loader loading={isLoading}/>
 
                     <TextInput style={styles.text_input} placeholder="Email" placeholderTextColor="white"
                                underlineColorAndroid={'transparent'} keyboardType="email-address"

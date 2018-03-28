@@ -16,10 +16,10 @@ import Loader from "./Loader";
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        isLoggedIn: state.registration.isLoggedIn,
-        token: state.registration.token,
-        isLoading: state.common.isLoading,
-        error: state.common.error
+        isLoggedIn: state.register.isLoggedIn,
+        token: state.register.token,
+        isLoading: state.register.isLoading,
+        error: state.register.error
     };
 };
 
@@ -60,14 +60,14 @@ export default class RegistrationForm extends React.Component {
     }
 
     render() {
-        const {isLoading} = this.props;
+        const {isLoading, error} = this.props;
 
-        if (this.props.error && !this.state.error) {
-            this.state.error = this.props.error;
+        if (error && !this.state.error) {
+            this.state.error = error;
             setTimeout(() => {
-                Alert.alert(this.props.error);
+                Alert.alert(error);
                 this.state.error = null;
-            }, 600);
+            }, 500);
         }
 
         return (

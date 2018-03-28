@@ -1,3 +1,4 @@
+import {SIGN_IN, SIGN_UP} from "../constants/Api";
 
 export const userService = {
     register,
@@ -18,7 +19,7 @@ function register(username, password, firstName, lastName) {
         })
     };
 
-    return fetch('/api/auth/signup', requestOptions);
+    return fetch(SIGN_UP, requestOptions);
 }
 
 function login(username, password) {
@@ -33,7 +34,7 @@ function login(username, password) {
         })
     };
 
-    return fetch('/api/auth/signin', requestOptions)
+    return fetch(SIGN_IN, requestOptions)
         .then(response => {
             if (!response.ok) {
                 return Promise.reject(response.statusText);
