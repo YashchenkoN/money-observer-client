@@ -6,8 +6,6 @@ const defaultState = {
 };
 
 export default function reducer(state = defaultState, action) {
-    console.log('LOGIN STATE: ', state);
-    console.log('LOGIN ACTION: ', action);
 
     switch (action.type) {
         case LOGIN:

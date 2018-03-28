@@ -6,8 +6,6 @@ const defaultState = {
 };
 
 export default function reducer(state = defaultState, action) {
-    console.log('REGISTER STATE: ', state);
-    console.log('REGISTER ACTION: ', action);
 
     switch (action.type) {
         case REGISTER:

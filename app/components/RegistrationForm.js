@@ -43,7 +43,8 @@ export default class RegistrationForm extends React.Component {
             password: '',
             firstName: '',
             lastName: '',
-            isLoading: false
+            isLoading: false,
+            error: null
         }
     }
 
@@ -54,17 +55,20 @@ export default class RegistrationForm extends React.Component {
             this.state.firstName,
             this.state.lastName
         );
-        e.preventDefault();
-    }
 
-    componentDidUpdate() {
-        if (this.props.error != null && this.props.error !== undefined && this.props.error !== '') {
-            setTimeout(() => Alert.alert(this.props.error), 600);
-        }
+        e.preventDefault();
     }
 
     render() {
         const {isLoading} = this.props;
+
+        if (this.props.error && !this.state.error) {
+            this.state.error = this.props.error;
+            setTimeout(() => {
+                Alert.alert(this.props.error);
+                this.state.error = null;
+            }, 600);
+        }
 
         return (
             <View style={styles.container}>
