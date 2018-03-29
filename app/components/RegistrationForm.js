@@ -58,7 +58,14 @@ export default class RegistrationForm extends React.Component {
             isLoggedIn: false,
             token: null,
             isLoading: false,
-            error: null
+            error: null,
+
+            value: {
+                email: '',
+                password: '',
+                firstName: '',
+                lastName: ''
+            }
         }
     }
 
@@ -68,6 +75,8 @@ export default class RegistrationForm extends React.Component {
         console.log(value);
 
         if (value) {
+            this.setState({value});
+
             this.props.onRegister(
                 value.email,
                 value.password,
@@ -96,7 +105,7 @@ export default class RegistrationForm extends React.Component {
 
                     <Loader loading={isLoading}/>
 
-                    <Form ref="form" type={RegisterObject} options={options}/>
+                    <Form ref="form" type={RegisterObject} options={options} value={this.state.value}/>
 
                     <TouchableOpacity style={styles.button} onPress={this.register}>
                         <Text style={styles.btn_text}>Sign up</Text>
