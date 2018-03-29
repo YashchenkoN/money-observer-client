@@ -39,7 +39,13 @@ const formStyle = {
 };
 
 const options = {
-    stylesheet: formStyle
+    stylesheet: formStyle,
+    fields: {
+        password: {
+            password: true,
+            secureTextEntry: true
+        }
+    }
 };
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -96,7 +102,7 @@ export default class RegistrationForm extends React.Component {
                         <Text style={styles.btn_text}>Sign up</Text>
                     </TouchableOpacity>
 
-                    <Button buttonStyle={{marginTop: 40}}
+                    <Button buttonStyle={{marginTop: 40, padding: 20}}
                             backgroundColor="transparent"
                             textStyle={{color: "#fff"}}
                             title="Login"
