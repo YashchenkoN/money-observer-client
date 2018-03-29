@@ -72,8 +72,6 @@ export default class RegistrationForm extends React.Component {
     register = () => {
         let value = this.refs.form.getValue();
 
-        console.log(value);
-
         if (value) {
             this.setState({value});
 
@@ -88,8 +86,6 @@ export default class RegistrationForm extends React.Component {
 
     render() {
         const {isLoading, error} = this.props;
-
-        console.log('LOADING: ' + isLoading);
 
         if (error && !this.state.error) {
             this.state.error = error;

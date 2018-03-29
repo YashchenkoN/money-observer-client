@@ -1,9 +1,9 @@
 import React from 'react';
-import {Alert, KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {Alert, KeyboardAvoidingView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {connect} from "react-redux";
 import {login} from "../redux/actions/Login";
-import {LOGIN} from "../redux/constants/ActionTypes";
 import Loader from "./Loader";
+import t from "tcomb-form-native";
 
 const mapStateToProps = (state, ownProps) => {
     return {
@@ -22,6 +22,30 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
+const LoginObject = t.struct({
+    email: t.String,
+    password: t.String
+});
+
+const Form = t.form.Form;
+
+const formStyle = {
+    ...Form.stylesheet,
+    error: {
+        color: 'red'
+    }
+};
+
+const options = {
+    stylesheet: formStyle,
+    fields: {
+        password: {
+            password: true,
+            secureTextEntry: true
+        }
+    }
+};
+
 @connect(mapStateToProps, mapDispatchToProps)
 export default class LoginForm extends React.Component {
 
@@ -29,18 +53,30 @@ export default class LoginForm extends React.Component {
         super(props);
 
         this.state = {
-            route: LOGIN,
-            email: '',
-            password: '',
+            isLoggedIn: false,
+            token: null,
             isLoading: false,
-            error: null
+            error: null,
+
+            value: {
+                email: '',
+                password: ''
+            }
         }
     }
 
-    login(e) {
-        this.props.onLogin(this.state.email, this.state.password);
-        e.preventDefault();
-    }
+    login = () => {
+        let value = this.refs.form.getValue();
+
+        if (value) {
+            this.setState({value});
+
+            this.props.onLogin(
+                value.email,
+                value.password
+            );
+        }
+    };
 
     render() {
         const {isLoading, error} = this.props;
@@ -59,15 +95,9 @@ export default class LoginForm extends React.Component {
 
                     <Loader loading={isLoading}/>
 
-                    <TextInput style={styles.text_input} placeholder="Email" placeholderTextColor="white"
-                               underlineColorAndroid={'transparent'} keyboardType="email-address"
-                               onChangeText={(text) => this.setState({email: text})}/>
-                    <TextInput style={styles.text_input} placeholder="Password" placeholderTextColor="white"
-                               underlineColorAndroid={'transparent'}
-                               onChangeText={(text) => this.setState({password: text})}
-                               secureTextEntry={true}/>
+                    <Form ref="form" type={LoginObject} options={options} value={this.state.value}/>
 
-                    <TouchableOpacity style={styles.button} onPress={(e) => this.login(e)}>
+                    <TouchableOpacity style={styles.button} onPress={this.login}>
                         <Text style={styles.btn_text}>Login</Text>
                     </TouchableOpacity>
 
@@ -81,7 +111,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        backgroundColor: '#36485f',
         paddingLeft: 60,
         paddingRight: 60
     },
