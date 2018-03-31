@@ -2,20 +2,29 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {addNavigationHelpers} from 'react-navigation';
 import Navigator from './Navigator';
-import Loader from "../components/Loader";
+import {
+    createReactNavigationReduxMiddleware,
+    createReduxBoundAddListener
+} from "react-navigation-redux-helpers";
 
-const NavigatorView = ({dispatch, navigator, isReady}) => (
-    isReady ? (
-        <Navigator navigation={addNavigationHelpers({dispatch, state: navigator})}/>
-    ) : (
-        <Loader isLoading={true}/>
-    )
+const middleware = createReactNavigationReduxMiddleware(
+    "root",
+    state => state.nav,
+);
+
+const addListener = createReduxBoundAddListener("root");
+
+const NavigatorView = ({dispatch, navigator}) => (
+    <Navigator navigation={addNavigationHelpers({
+        dispatch,
+        state: navigator,
+        addListener
+    })}/>
 );
 
 NavigatorView.propTypes = {
     dispatch: PropTypes.func,
-    navigator: PropTypes.object,
-    isReady: PropTypes.bool,
+    navigator: PropTypes.object
 };
 
 export default NavigatorView;

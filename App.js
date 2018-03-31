@@ -13,7 +13,8 @@ export default class App extends React.Component {
         return (
             <View style={styles.rootStyle}>
                 <Provider store={store}>
-                    {this.props.isLoggedIn ? <NavigatorContainer/> : <AuthNavigator/>}
+                    {/*{this.props.isLoggedIn ? <NavigatorContainer/> : <AuthNavigator/>}*/}
+                    {<NavigatorContainer/>}
                 </Provider>
             </View>
         )

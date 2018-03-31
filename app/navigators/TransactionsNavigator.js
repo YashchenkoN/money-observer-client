@@ -1,5 +1,5 @@
 import screens from "../screens/Screens";
-import TransactionsScreen from "../screens/TransactionsScreen";
+import TransactionsScreen from "../screens/transactions/TransactionsScreen";
 import {StackNavigator} from "react-navigation";
 import navOptions from "../utils/navUtils";
 

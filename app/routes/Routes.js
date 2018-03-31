@@ -7,9 +7,9 @@ const Routes = {
     [screens.TransactionsRoot]: {
         screen: TransactionsNavigator
     },
-    [screens.SettingsRoot]: {
-        screen: SettingsNavigator
-    },
+    // [screens.SettingsRoot]: {
+    //     screen: SettingsNavigator
+    // },
 };
 
 export default Routes;
