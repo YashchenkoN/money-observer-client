@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class History extends React.Component {
+export default class SettingsScreen extends React.Component {
 
     render() {
         return null;

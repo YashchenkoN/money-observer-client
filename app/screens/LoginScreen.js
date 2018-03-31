@@ -1,32 +1,30 @@
 import React from 'react';
-import {Alert, Button, KeyboardAvoidingView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Alert, KeyboardAvoidingView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {connect} from "react-redux";
-import {register} from "../redux/actions/Registration";
-import Loader from "./Loader";
+import {login} from "../redux/actions/Login";
+import Loader from "../components/Loader";
 import t from "tcomb-form-native";
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        isLoggedIn: state.register.isLoggedIn,
-        token: state.register.token,
-        isLoading: state.register.isLoading,
-        error: state.register.error
+        isLoggedIn: state.login.isLoggedIn,
+        token: state.login.token,
+        isLoading: state.login.isLoading,
+        error: state.login.error
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onRegister: (email, password, firstName, lastName) => {
-            dispatch(register(email, password, firstName, lastName));
+        onLogin: (username, password) => {
+            dispatch(login(username, password));
         }
     }
 };
 
-const RegisterObject = t.struct({
+const LoginObject = t.struct({
     email: t.String,
-    password: t.String,
-    firstName: t.String,
-    lastName: t.String
+    password: t.String
 });
 
 const Form = t.form.Form;
@@ -49,7 +47,7 @@ const options = {
 };
 
 @connect(mapStateToProps, mapDispatchToProps)
-export default class RegistrationForm extends React.Component {
+export default class LoginScreen extends React.Component {
 
     constructor(props) {
         super(props);
@@ -62,24 +60,20 @@ export default class RegistrationForm extends React.Component {
 
             value: {
                 email: '',
-                password: '',
-                firstName: '',
-                lastName: ''
+                password: ''
             }
         }
     }
 
-    register = () => {
+    login = () => {
         let value = this.refs.form.getValue();
 
         if (value) {
             this.setState({value});
 
-            this.props.onRegister(
+            this.props.onLogin(
                 value.email,
-                value.password,
-                value.firstName,
-                value.lastName
+                value.password
             );
         }
     };
@@ -97,21 +91,15 @@ export default class RegistrationForm extends React.Component {
 
         return (
             <View style={styles.container}>
-                <KeyboardAvoidingView style={styles.registration_form} behaviour="padding">
+                <KeyboardAvoidingView style={styles.login_form} behaviour="padding">
 
                     <Loader loading={isLoading}/>
 
-                    <Form ref="form" type={RegisterObject} options={options} value={this.state.value}/>
+                    <Form ref="form" type={LoginObject} options={options} value={this.state.value}/>
 
-                    <TouchableOpacity style={styles.button} onPress={this.register}>
-                        <Text style={styles.btn_text}>Sign up</Text>
+                    <TouchableOpacity style={styles.button} onPress={this.login}>
+                        <Text style={styles.btn_text}>Login</Text>
                     </TouchableOpacity>
-
-                    <Button buttonStyle={{marginTop: 40, padding: 20}}
-                            backgroundColor="transparent"
-                            textStyle={{color: "#fff"}}
-                            title="Login"
-                            onPress={() => this.props.navigation.navigate('Login')}/>
 
                 </KeyboardAvoidingView>
             </View>
@@ -126,9 +114,17 @@ const styles = StyleSheet.create({
         paddingLeft: 60,
         paddingRight: 60
     },
-    registration_form: {
+    login_form: {
         alignSelf: 'stretch',
 
+    },
+    text_input: {
+        alignSelf: 'stretch',
+        height: 40,
+        marginBottom: 30,
+        color: '#fff',
+        borderBottomColor: '#f8f8f8',
+        borderBottomWidth: 1
     },
     button: {
         alignSelf: 'stretch',
@@ -140,9 +136,5 @@ const styles = StyleSheet.create({
     btn_text: {
         color: '#fff',
         fontWeight: 'bold'
-    },
-    error: {
-        borderColor: '#cb002f',
-        borderWidth: 1
     }
 });

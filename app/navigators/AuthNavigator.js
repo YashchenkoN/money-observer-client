@@ -1,16 +1,16 @@
 import {StackNavigator} from "react-navigation";
-import RegistrationForm from "../components/RegistrationForm";
-import LoginForm from "../components/LoginForm";
+import RegistrationScreen from "../screens/RegistrationScreen";
+import LoginScreen from "../screens/LoginScreen";
 
 export const AuthNavigator = StackNavigator({
     Register: {
-        screen: RegistrationForm,
+        screen: RegistrationScreen,
         navigationOptions: {
             title: 'Registration'
         }
     },
     Login: {
-        screen: LoginForm,
+        screen: LoginScreen,
         navigationOptions: {
             title: 'Login'
         }
