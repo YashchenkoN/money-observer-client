@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {View} from 'react-native';
+import {Text, View} from 'react-native';
 import appStyles from "../../styles/Styles";
 import styles from "./TransactionsHeaderStyles";
 import DrawerButton from "../../components/DrawerButton";

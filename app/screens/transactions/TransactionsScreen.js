@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Alert from "react-native";
+import {Alert} from "react-native";
 import ScreenWrapper from "../../components/ScreenWrapper";
 import TransactionsHeaderContainer from "./TransactionsHeaderContainer";
 import ActionButton from "../../components/ActionButton";

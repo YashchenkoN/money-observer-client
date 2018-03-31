@@ -15,5 +15,9 @@ export default styles = StyleSheet.create({
         marginRight: 16,
         fontSize: 26,
         color: colors.textPrimary
+    },
+    rowStyle: {
+        flexDirection: 'row',
+        alignItems: 'center',
     }
 });

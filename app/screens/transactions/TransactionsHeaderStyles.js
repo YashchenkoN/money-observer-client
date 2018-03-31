@@ -1,7 +1,7 @@
 import {StyleSheet} from 'react-native';
 import colors from "../../styles/Colors";
 
-const appBarHeight = 56;
+const appBarHeight = 44;
 const statusBarHeight = 20;
 
 const styles = StyleSheet.create({
