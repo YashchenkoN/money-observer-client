@@ -5,6 +5,7 @@ import store from './app/redux/Index'
 import {AuthNavigator} from "./app/navigators/AuthNavigator";
 import styles from "./app/styles/Styles";
 import NavigatorContainer from "./app/navigators/NavigatorContainer";
+import {View} from "react-native";
 
 export default class App extends React.Component {
 

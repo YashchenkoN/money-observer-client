@@ -3,7 +3,7 @@ import { Dimensions, Image, Text, StyleSheet, View } from 'react-native';
 import { DrawerItems } from 'react-navigation';
 import colors from '../styles/Colors';
 
-const cover = require('../images/pattern.png');
+const cover = require('../images/pattern.jpg');
 
 const coverSizes = {
     height: 200,
