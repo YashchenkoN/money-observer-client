@@ -8,7 +8,9 @@ const enhance = compose(
 
     withHandlers({
         onToggleChart: ({navigation, isChartShown}) => () => {
-            navigation.state.params.showChart = !isChartShown
+            navigation.setParams({
+                showChart: !isChartShown
+            })
         },
     })
 );

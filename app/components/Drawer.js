@@ -7,7 +7,7 @@ const cover = require('../images/pattern.jpg');
 
 const coverSizes = {
     height: 200,
-    width: Dimensions.get('window').width * 0.9,
+    width: Dimensions.get('window').width * 0.747,
 };
 
 const styles = StyleSheet.create({
@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
         fontSize: 32,
         fontWeight: 'bold',
         color: colors.white,
+        textAlign: 'center'
     },
 });
 
