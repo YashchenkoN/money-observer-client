@@ -10,7 +10,7 @@ const TransactionsNavigator = StackNavigator({
 }, {
     ...navOptions({
         title: 'Transactions',
-        icon: 'chart-arc',
+        icon: 'format-list-bulleted',
     }),
 });
 

@@ -24,4 +24,7 @@ export default {
 
     DrawerOpen: 'DrawerOpen',
     DrawerClose: 'DrawerClose',
+
+    DashboardRoot: 'DashboardRoot',
+    Dashboard: 'Dashboard'
 };

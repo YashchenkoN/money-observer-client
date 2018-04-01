@@ -1,8 +1,21 @@
-import React from "react";
+import React from 'react';
+import PropTypes from 'prop-types';
+import {View} from 'react-native';
+import DrawerButton from "../components/DrawerButton";
 
-export default class DashboardScreen extends React.Component {
+const DashboardScreen = ({navigation}) => (
+    <View>
 
-    render() {
-        return null;
-    }
-}
+    </View>
+);
+
+DashboardScreen.propTypes = {
+    navigation: PropTypes.object,
+};
+
+DashboardScreen.navigationOptions = ({navigation}) => ({
+    title: 'Dashboard',
+    headerLeft: <DrawerButton navigation={navigation}/>
+});
+
+export default DashboardScreen;

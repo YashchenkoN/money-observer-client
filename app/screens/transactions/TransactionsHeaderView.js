@@ -1,16 +1,15 @@
 import {compose, withHandlers, withProps} from 'recompose';
 import TransactionsHeader from './TransactionsHeader';
+import {Alert} from "react-native";
 
 const enhance = compose(
     withProps(({navigation}) => ({
-        isChartShown: (navigation.state.params && navigation.state.params.showChart) || false,
+
     })),
 
     withHandlers({
-        onToggleChart: ({navigation, isChartShown}) => () => {
-            navigation.setParams({
-                showChart: !isChartShown
-            })
+        onRefresh: ({navigation}) => () => {
+            Alert.alert("Refresh")
         },
     })
 );
