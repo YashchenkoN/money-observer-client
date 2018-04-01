@@ -6,6 +6,9 @@
       "icon": "./app/images/app-logo.png",
       "hideExponentText": true
     },
+    "splash": {
+      "image": "./app/images/app-logo.png"
+    },
     "name": "Money Observer",
     "version": "0.0.1"
   }
