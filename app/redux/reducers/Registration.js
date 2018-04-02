@@ -13,8 +13,8 @@ export default function reducer(state = defaultState, action) {
         case REGISTER:
             return {
                 ...state,
-                isLoggedIn: action.isLoggedIn,
-                token: action.token
+                token: action.token,
+                expiration: action.expiration
             };
         case REGISTER_LOADING:
             return {

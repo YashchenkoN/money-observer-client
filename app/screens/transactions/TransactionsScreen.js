@@ -16,6 +16,8 @@ const TransactionsScreen = ({navigation}) => (
 
 TransactionsScreen.propTypes = {
     navigation: PropTypes.object,
+    token: PropTypes.string,
+    expiration: PropTypes.string
 };
 
 TransactionsScreen.navigationOptions = ({navigation}) => ({

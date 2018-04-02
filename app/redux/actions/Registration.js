@@ -14,6 +14,7 @@ export const register = (email, password, firstName, lastName) => {
                     dispatch({
                         type: REGISTER,
                         token: json.token,
+                        expiration: json.expiresOn,
                         error: null
                     });
                 }

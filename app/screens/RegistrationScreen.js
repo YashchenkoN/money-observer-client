@@ -7,8 +7,8 @@ import t from "tcomb-form-native";
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        isLoggedIn: state.register.isLoggedIn,
-        token: state.register.token,
+        token: state.token,
+        expiration: state.expiration,
         isLoading: state.register.isLoading,
         error: state.register.error
     };
@@ -55,8 +55,8 @@ export default class RegistrationScreen extends React.Component {
         super(props);
 
         this.state = {
-            isLoggedIn: false,
             token: null,
+            expiration: null,
             isLoading: false,
             error: null,
 
