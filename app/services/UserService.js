@@ -36,7 +36,3 @@ function login(username, password) {
 
     return fetch(SIGN_IN, requestOptions);
 }
-
-function isTokenExpired() {
-
-}

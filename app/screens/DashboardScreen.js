@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {View} from 'react-native';
 import DrawerButton from "../components/DrawerButton";
 
-const DashboardScreen = ({navigation}) => (
+const DashboardScreen = (props) => (
     <View>
 
     </View>
