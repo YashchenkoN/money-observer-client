@@ -14,7 +14,7 @@ const config = {
     contentComponent: Drawer,
     contentOptions: {
         ...navColors,
-    },
+    }
 };
 
 export default Navigator(Routes, config);

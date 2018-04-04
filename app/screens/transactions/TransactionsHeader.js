@@ -9,7 +9,9 @@ import HeaderIcon from "../../components/HeaderIcon";
 const TransactionsHeader = (props) => {
     const {
         navigation,
-        onRefresh
+        onRefresh,
+        token,
+        isLoading
     } = props;
 
     return (
@@ -17,7 +19,11 @@ const TransactionsHeader = (props) => {
             <DrawerButton navigation={navigation}/>
             <HeaderIcon
                 name={'refresh'}
-                onPress={onRefresh}
+                onPress={() => {
+                    if (!isLoading) {
+                        onRefresh(token)
+                    }
+                }}
             />
         </View>
     );
@@ -25,8 +31,9 @@ const TransactionsHeader = (props) => {
 
 TransactionsHeader.propTypes = {
     navigation: PropTypes.object.isRequired,
-    isChartShown: PropTypes.bool,
-    onRefresh: PropTypes.func
+    onRefresh: PropTypes.func,
+    token: PropTypes.string.isRequired,
+    isLoading: PropTypes.bool.isRequired
 };
 
 export default TransactionsHeader;
